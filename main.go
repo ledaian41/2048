@@ -110,6 +110,7 @@ func compressAndMerge(tiles []int) []int {
 		index := len(result) - 1
 		if compressed || index < 0 || result[index] != tile {
 			result = append(result, tile)
+			compressed = false
 		} else {
 			result[index] += 1
 			compressed = true
