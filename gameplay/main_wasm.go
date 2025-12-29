@@ -32,6 +32,11 @@ func moveDir(this js.Value, args []js.Value) interface{} {
 	if len(args) < 1 {
 		return nil
 	}
+
+	if currentBoard.GameOver {
+		return getBoardState()
+	}
+
 	dirStr := args[0].String()
 	var dir Direction
 	switch dirStr {

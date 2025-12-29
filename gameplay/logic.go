@@ -98,3 +98,19 @@ func compressAndMerge(tiles []int) []int {
 	}
 	return result
 }
+
+func isGameOver(board *GameBoard) bool {
+	for i := int8(0); i < board.Size; i++ {
+		rows := board.GetTilesInRow(i)
+		if slices.Contains(rows, 0) {
+			return false
+		}
+		col := board.GetTilesInCol(i)
+		for j := int8(0); j < board.Size-1; j++ {
+			if rows[j] == rows[j+1] || col[j] == col[j+1] {
+				return false
+			}
+		}
+	}
+	return true
+}

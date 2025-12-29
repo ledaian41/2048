@@ -10,7 +10,7 @@ func main() {
 	fmt.Println("GAME START")
 	board := initNewBoard()
 	board.Print()
-	for {
+	for !board.GameOver {
 		var input string
 		fmt.Scan(&input)
 

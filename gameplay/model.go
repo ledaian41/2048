@@ -58,7 +58,12 @@ func (board *GameBoard) Move(direction Direction) bool {
 	board.Tiles = newTiles
 	board.SpawnTile([]RandomTile{{Value: 1, Weight: 90}, {Value: 2, Weight: 10}})
 	board.CalculateScore()
+	board.IsGameOver()
 	return true
+}
+
+func (board *GameBoard) IsGameOver() {
+	board.GameOver = isGameOver(board)
 }
 
 func (board *GameBoard) SpawnTile(randomTiles []RandomTile) {

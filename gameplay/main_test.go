@@ -175,3 +175,72 @@ func TestSpawnTile_FullBoard(t *testing.T) {
 		t.Error("Expected board to remain unchanged when full")
 	}
 }
+
+func TestIsGameOver(t *testing.T) {
+	tests := []struct {
+		name     string
+		board    GameBoard
+		expected bool
+	}{
+		{
+			name: "Board has empty cells (not game over)",
+			board: GameBoard{
+				Size: 4,
+				Tiles: []int{
+					2, 4, 2, 4,
+					4, 2, 4, 2,
+					2, 4, 0, 4, // Empty cell here
+					4, 2, 4, 2,
+				},
+			},
+			expected: false,
+		},
+		{
+			name: "Board full, horizontal merge possible (not game over)",
+			board: GameBoard{
+				Size: 4,
+				Tiles: []int{
+					2, 2, 4, 8, // Merge possible here (2, 2)
+					4, 8, 2, 4,
+					2, 4, 8, 2,
+					8, 2, 4, 8,
+				},
+			},
+			expected: false,
+		},
+		{
+			name: "Board full, vertical merge possible (not game over)",
+			board: GameBoard{
+				Size: 4,
+				Tiles: []int{
+					2, 4, 2, 4,
+					2, 8, 4, 2, // Vertical match at (0,0) and (1,0) -> value 2
+					4, 2, 8, 4,
+					2, 4, 2, 8,
+				},
+			},
+			expected: false,
+		},
+		{
+			name: "Board full, no moves possible (game over)",
+			board: GameBoard{
+				Size: 4,
+				Tiles: []int{
+					2, 4, 2, 4,
+					4, 2, 4, 2,
+					2, 4, 2, 4,
+					4, 2, 4, 2,
+				},
+			},
+			expected: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := isGameOver(&tt.board); got != tt.expected {
+				t.Errorf("isGameOver() = %v, want %v", got, tt.expected)
+			}
+		})
+	}
+}
