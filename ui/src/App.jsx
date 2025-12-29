@@ -83,9 +83,17 @@ function App() {
 
 				{!isReady && <div>Loading Game...</div>}
 
-				{isReady && <Board tiles={board.Tiles || []} />}
+				{isReady && (
+					<Board tiles={board.Tiles || []} disabled={board.GameOver} />
+				)}
 
-				<div className="instructions">Use Arrow Keys or Swipe to Play</div>
+				<div className="instructions">
+					{board.GameOver ? (
+						<span>Game Over</span>
+					) : (
+						<span>Use Arrow Keys or Swipe to Play</span>
+					)}
+				</div>
 
 				<button
 					type="button"

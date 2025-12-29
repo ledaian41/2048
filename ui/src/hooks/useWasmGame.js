@@ -36,7 +36,8 @@ export function useWasmGame() {
 	}, []);
 
 	const move = (direction) => {
-		if (!isReady || !window.move) return;
+		if (!isReady || !window.move || board.GameOver) return;
+		
 		const stateStr = window.move(direction);
 		setBoard(JSON.parse(stateStr));
 	};

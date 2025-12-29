@@ -72,6 +72,7 @@ body {
 
 /* Grid & Tiles */
 .game-grid {
+	aspect-ratio: 1;
 	width: 100vw;
 	max-width: 240px;
 	display: grid;
@@ -87,8 +88,6 @@ body {
 .grid-cell {
 	background: #555;
 	border-radius: 8px;
-	width: 100%;
-	aspect-ratio: 1;
 }
 
 .tile {
