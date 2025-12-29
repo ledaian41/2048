@@ -40,6 +40,16 @@ func (board *GameBoard) GetTilesInCol(colIndex int8) []int {
 	return col
 }
 
+func (board *GameBoard) CalculateScore() {
+	score := 0
+	for _, tile := range board.Tiles {
+		if tile > 0 {
+			score += 1 << tile
+		}
+	}
+	board.Score = score
+}
+
 func (board *GameBoard) Move(direction Direction) bool {
 	newTiles := move(board, direction)
 	if slices.Equal(newTiles, board.Tiles) {
@@ -47,6 +57,7 @@ func (board *GameBoard) Move(direction Direction) bool {
 	}
 	board.Tiles = newTiles
 	board.SpawnTile([]RandomTile{{Value: 1, Weight: 90}, {Value: 2, Weight: 10}})
+	board.CalculateScore()
 	return true
 }
 
